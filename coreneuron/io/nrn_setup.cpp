@@ -48,6 +48,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 #include "coreneuron/permute/cellorder.hpp"
 #include "coreneuron/io/nrnsection_mapping.hpp"
 #include "coreneuron/utils/nrnoc_aux.hpp"
+#include "coreneuron/io/setup_fornetcon.hpp"
 
 // callbacks into nrn/src/nrniv/nrnbbcore_write.cpp
 #include "coreneuron/sim/fast_imem.hpp"
@@ -1923,6 +1924,9 @@ for (int i=0; i < nt.end; ++i) {
     }
     assert(iw == nweight);
     delete[] pnttype;
+
+    // Nontrivial if FOR_NETCON in use by some mechanisms
+    setup_fornetcon_info(nt);
 
     // delays in netcons order
     if (!direct) {
